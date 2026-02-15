@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { NewYearBackground } from '@/components/NewYearBackground';
 
 export default function Home() {
   const [showWish, setShowWish] = useState(false);
   const [wishData, setWishData] = useState({
-    text: 'Chúc gia đình một năm mới Vạn Sự Như Ý, An Khang Thịnh Vượng!',
+    text: 'Chúc bạn một năm mới đong đầy hạnh phúc, trọn vẹn bình an và luôn tỏa sáng với những đam mê của chính mình!',
     image: 'https://images.unsplash.com/photo-1546271027-3367f08df1e5?q=80&w=1000&auto=format&fit=crop'
   });
 
@@ -42,6 +43,7 @@ export default function Home() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden font-sans">
+      <NewYearBackground />
       {/* Premium Background Glows & Bokeh */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Large static glows */}
@@ -55,82 +57,62 @@ export default function Home() {
         <div className="absolute top-[60%] right-[15%] h-40 w-40 rounded-full bg-amber-200/5 blur-2xl animate-float-reverse" />
       </div>
 
-      {/* Settings Link */}
-      <div className="absolute top-6 right-6 z-20">
-        <a
-          href="/setting"
-          className="rounded-full bg-white/5 p-3 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors group"
-          title="Cài đặt"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/60 group-hover:text-white transition-colors">
-            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /><circle cx="12" cy="12" r="3" />
-          </svg>
-        </a>
-      </div>
 
-      <main className="relative z-10 flex flex-col items-center justify-center text-center px-4">
-        {/* Happy New Year Text - Moves up when wish is shown */}
-        <div className={`transition-all duration-1000 ease-in-out ${showWish ? 'mb-8 translate-y-[-20px]' : 'mt-[200px]'}`}>
-          <p className="text-lg font-bold tracking-[0.8em] text-white/40 uppercase">
-            <span className="bg-gradient-to-r from-amber-200 via-white to-orange-200 bg-clip-text text-transparent">
-              Happy New Year
-            </span>
-          </p>
-        </div>
 
-        {/* Family Wish Card - Premium 'Tết' Theme */}
+      <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">
+
+
+        {/* Personal Wish Card - Premium 'Tết' Theme */}
         {showWish && (
-          <div className="animate-in fade-in zoom-in-95 slide-in-from-bottom-12 duration-1000 w-full max-w-4xl overflow-hidden rounded-[3rem] bg-gradient-to-br from-red-600/20 via-black/40 to-amber-600/20 p-[2px] backdrop-blur-3xl border border-amber-500/30 shadow-[0_0_100px_rgba(220,38,38,0.2)] mt-8 group relative">
+          <div className="animate-in fade-in zoom-in-95 slide-in-from-bottom-12 duration-1000 w-full max-w-lg overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-gradient-to-br from-red-600/20 via-black/40 to-amber-600/20 p-[1px] md:p-[2px] backdrop-blur-3xl border border-amber-500/30 shadow-[0_0_100px_rgba(220,38,38,0.2)] mt-4 md:mt-8 group relative mx-auto">
 
-            {/* Decorative Corner Blossoms (SVG) */}
-            <div className="absolute top-0 left-0 p-4 opacity-60 pointer-events-none z-20">
-              <svg width="60" height="60" viewBox="0 0 100 100" className="text-amber-400 rotate-[-15deg]">
-                <circle cx="50" cy="50" r="10" fill="currentColor" />
-                {[0, 72, 144, 216, 288].map(a => (
-                  <ellipse key={a} cx="50" cy="30" rx="15" ry="22" fill="currentColor" transform={`rotate(${a} 50 50)`} />
-                ))}
-              </svg>
+            {/* Decorative Horse Silhouettes (Year of the Horse 2026) */}
+            <div className="absolute top-0 left-0 p-4 md:p-6 opacity-60 pointer-events-none z-20">
+              <img
+                src="/z7536414554090_a8eef6981e15bcf407762f518a7bd877-removebg-preview.png"
+                alt="Decorative Icon"
+                className="w-12 h-12 md:w-16 md:h-16 object-contain rotate-[-10deg] drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]"
+              />
             </div>
-            <div className="absolute bottom-0 right-0 p-4 opacity-60 pointer-events-none z-20">
-              <svg width="80" height="80" viewBox="0 0 100 100" className="text-red-500 rotate-[165deg]">
-                <circle cx="50" cy="50" r="10" fill="currentColor" />
-                {[0, 72, 144, 216, 288].map(a => (
-                  <ellipse key={a} cx="50" cy="30" rx="15" ry="22" fill="currentColor" transform={`rotate(${a} 50 50)`} />
-                ))}
-              </svg>
+            <div className="absolute bottom-0 right-0 p-4 md:p-8 opacity-60 pointer-events-none z-20">
+              <img
+                src="/z7536414554090_a8eef6981e15bcf407762f518a7bd877-removebg-preview.png"
+                alt="Decorative Icon"
+                className="w-14 h-14 md:w-20 md:h-20 object-contain rotate-[10deg] scale-x-[-1] drop-shadow-[0_0_12px_rgba(239,68,68,0.4)]"
+              />
             </div>
 
-            <div className="bg-black/40 rounded-[2.9rem] overflow-hidden">
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-t-[2rem]">
+            <div className="bg-black/40 rounded-[1.95rem] md:rounded-[2.9rem] overflow-hidden">
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
                 <img
                   src={wishData.image}
-                  alt="Family Wish"
+                  alt="Personal Wish"
                   className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
 
                 {/* Greeting Overlay */}
-                <div className="absolute bottom-4 left-0 right-0 text-center">
-                  <span className="px-6 py-1 rounded-full bg-red-600/80 text-white text-xs font-bold tracking-[0.3em] uppercase backdrop-blur-sm border border-amber-400/30">
+                <div className="absolute bottom-3 md:bottom-4 left-0 right-0 text-center">
+                  <span className="px-4 md:px-6 py-0.5 md:py-1 rounded-full bg-red-600/80 text-white text-[10px] md:text-xs font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase backdrop-blur-sm border border-amber-400/30">
                     Chúc Mừng Năm Mới
                   </span>
                 </div>
               </div>
 
-              <div className="p-10 md:p-16 relative">
-                {/* Traditional Silk Texture Pattern (Optional/Subtle) */}
+              <div className="p-6 md:p-8 relative">
+                {/* Traditional Silk Texture Pattern */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
-                <h2 className="text-3xl md:text-5xl font-serif font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] italic">
+                <h2 className="text-lg md:text-2xl font-serif font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] italic px-2">
                   "{wishData.text}"
                 </h2>
 
-                <div className="mt-10 flex items-center justify-center gap-4">
+                <div className="mt-6 md:mt-8 flex items-center justify-center gap-3 md:gap-4">
                   <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
-                  <div className="flex gap-2">
-                    <span className="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_8px_#ef4444]" />
-                    <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]" />
-                    <span className="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_8px_#ef4444]" />
+                  <div className="flex gap-1.5 md:gap-2">
+                    <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-red-600 shadow-[0_0_8px_#ef4444]" />
+                    <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]" />
+                    <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-red-600 shadow-[0_0_8px_#ef4444]" />
                   </div>
                   <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
                 </div>

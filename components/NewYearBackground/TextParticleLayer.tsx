@@ -73,16 +73,17 @@ export const TextParticleLayer: React.FC = () => {
         active: boolean = true;
 
         constructor(x: number, y: number) {
+            const isMobile = window.innerWidth < 768;
             this.x = Math.random() * window.innerWidth;
             this.y = Math.random() * window.innerHeight;
             this.baseX = x;
             this.baseY = y;
             this.targetX = x;
             this.targetY = y;
-            this.size = Math.random() * 1.5 + 0.8;
+            this.size = (Math.random() * 1.5 + 0.8) * (isMobile ? 1.4 : 1);
             this.density = Math.random() * 20 + 5;
             this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-            this.opacity = Math.random() * 0.5 + 0.5;
+            this.opacity = isMobile ? (Math.random() * 0.3 + 0.7) : (Math.random() * 0.5 + 0.5);
             this.angle = Math.random() * Math.PI * 2;
             this.pulseSpeed = Math.random() * 0.1 + 0.05;
             this.sprite = createParticleSprite(this.color, this.size);
@@ -155,14 +156,21 @@ export const TextParticleLayer: React.FC = () => {
         if (!canvasRef.current) return;
 
         currentTargetRef.current = text;
+        const width = window.innerWidth;
+        const isMobile = width < 768;
         const isButtonNeeded = !isCountdownActive && text === '2026';
-        const step = window.innerWidth < 768 ? 10 : 5;
+
+        // Responsive Font Sizes
+        const mainFontSize = isMobile ? (text.length > 2 ? '110px' : '160px') : '220px';
+        const buttonFontSize = isMobile ? '36px' : '40px';
+        const buttonYOffset = isMobile ? 120 : 180;
+        const step = isMobile ? 5 : 5; // Use same high density for mobile
 
         // Target points for main text
         const mainPoints = getSamplePoints(
             text,
-            'bold 220px Arial Black, sans-serif',
-            window.innerWidth / 2,
+            `900 ${mainFontSize} Arial Black, sans-serif`,
+            width / 2,
             window.innerHeight / 2,
             step
         );
@@ -172,9 +180,9 @@ export const TextParticleLayer: React.FC = () => {
         if (isButtonNeeded) {
             buttonPoints = getSamplePoints(
                 'BẮT ĐẦU',
-                'bold 40px Arial Black, sans-serif',
-                window.innerWidth / 2,
-                window.innerHeight / 2 + 180,
+                `900 ${buttonFontSize} Arial Black, sans-serif`,
+                width / 2,
+                window.innerHeight / 2 + buttonYOffset,
                 step - 1
             );
         }
@@ -223,12 +231,21 @@ export const TextParticleLayer: React.FC = () => {
         const handleClick = (e: MouseEvent) => {
             if (isCountdownActive || currentTargetRef.current !== '2026') return;
 
-            // Simple hit detection for the button
-            const bx = window.innerWidth / 2;
-            const by = window.innerHeight / 2 + 180;
+            // Responsive hit detection for the button
+            const width = window.innerWidth;
+            const isMobile = width < 768;
+            const bx = width / 2;
+            const buttonYOffset = isMobile ? 120 : 180;
+            const by = window.innerHeight / 2 + buttonYOffset;
+
             const dx = e.clientX - bx;
             const dy = e.clientY - by;
-            if (Math.abs(dx) < 120 && Math.abs(dy) < 40) {
+
+            // Larger hit area for touch/mobile
+            const hitW = isMobile ? 80 : 120;
+            const hitH = isMobile ? 30 : 40;
+
+            if (Math.abs(dx) < hitW && Math.abs(dy) < hitH) {
                 const startValue = parseInt(localStorage.getItem('countdownStart') || '10', 10);
                 setCount(startValue);
                 setIsCountdownActive(true);
@@ -252,12 +269,14 @@ export const TextParticleLayer: React.FC = () => {
             particlesRef.current.forEach(p => {
                 if (!p.active) return;
 
-                // Sway logic
-                const isButtonPart = p.baseY > window.innerHeight / 2 + 100;
+                // Responsive Sway logic
+                const isMobile = window.innerWidth < 768;
+                const buttonYLimit = window.innerHeight / 2 + (isMobile ? 80 : 100);
+                const isButtonPart = p.baseY > buttonYLimit;
                 const swayMult = isButtonPart ? 0.3 : 1.0;
 
-                const individualSwayX = Math.sin(t * 0.8 + p.baseX * 0.05) * (isButtonPart ? 2 : 5);
-                const individualSwayY = Math.cos(t * 0.6 + p.baseY * 0.05) * (isButtonPart ? 2 : 5);
+                const individualSwayX = Math.sin(t * 0.8 + p.baseX * 0.05) * (isButtonPart ? 2 : (isMobile ? 3 : 5));
+                const individualSwayY = Math.cos(t * 0.6 + p.baseY * 0.05) * (isButtonPart ? 2 : (isMobile ? 3 : 5));
 
                 const targetX = p.baseX + globalSwayX * swayMult + individualSwayX;
                 const targetY = p.baseY + globalSwayY * swayMult + individualSwayY;

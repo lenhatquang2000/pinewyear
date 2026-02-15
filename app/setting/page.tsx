@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function SettingPage() {
     const [countdownStart, setCountdownStart] = useState(10);
-    const [familyWish, setFamilyWish] = useState('Chúc gia đình một năm mới Vạn Sự Như Ý, An Khang Thịnh Vượng!');
+    const [familyWish, setFamilyWish] = useState('Chúc bạn một năm mới đong đầy hạnh phúc, trọn vẹn bình an và luôn tỏa sáng với những đam mê của chính mình!');
     const [imageUrl, setImageUrl] = useState('https://images.unsplash.com/photo-1546271027-3367f08df1e5?q=80&w=1000&auto=format&fit=crop');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,7 +64,7 @@ export default function SettingPage() {
 
                     <div className="flex flex-col gap-2">
                         <label className="text-sm font-medium text-white/60 uppercase tracking-widest">
-                            Câu chúc gia đình
+                            Câu chúc cá nhân
                         </label>
                         <textarea
                             value={familyWish}
@@ -76,7 +76,7 @@ export default function SettingPage() {
 
                     <div className="flex flex-col gap-2">
                         <label className="text-sm font-medium text-white/60 uppercase tracking-widest">
-                            Ảnh gia đình
+                            Ảnh cá nhân
                         </label>
 
                         <div className="relative group overflow-hidden rounded-xl border-2 border-dashed border-white/20 hover:border-amber-400/50 transition-all">

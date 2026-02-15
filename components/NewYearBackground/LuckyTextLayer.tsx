@@ -105,26 +105,30 @@ export const LuckyTextLayer: React.FC = () => {
             const isMobile = window.innerWidth < 768;
 
             if (isMobile) {
-                // Simplified for mobile
-                sampleText('PHÚC', window.innerWidth * 0.25, window.innerHeight * 0.1, '#FFD700', 60);
-                sampleText('LỘC', window.innerWidth * 0.75, window.innerHeight * 0.1, '#FF0000', 60);
-                sampleText('THỌ', window.innerWidth * 0.5, window.innerHeight * 0.2, '#FFD700', 60);
+                // Centered stacked for small mobile
+                sampleText('PHÚC', window.innerWidth * 0.5, window.innerHeight * 0.08, '#FFD700', 50);
+                sampleText('LỘC', window.innerWidth * 0.5, window.innerHeight * 0.15, '#FF0000', 50);
+                sampleText('THỌ', window.innerWidth * 0.5, window.innerHeight * 0.22, '#FFD700', 50);
 
-                sampleText('AN KHANG THỊNH VƯỢNG', window.innerWidth * 0.5, window.innerHeight * 0.8, '#FF0000', 30);
-                sampleText('VẠN SỰ NHƯ Ý', window.innerWidth * 0.5, window.innerHeight * 0.9, '#FFD700', 30);
+                sampleText('AN KHANG THỊNH VƯỢNG', window.innerWidth * 0.5, window.innerHeight * 0.85, '#FF0000', 24);
+                sampleText('VẠN SỰ NHƯ Ý', window.innerWidth * 0.5, window.innerHeight * 0.92, '#FFD700', 24);
             } else {
-                // Top corners
-                sampleText('PHÚC', window.innerWidth * 0.1, window.innerHeight * 0.15, '#FFD700', 90);
-                sampleText('LỘC', window.innerWidth * 0.5, window.innerHeight * 0.1, '#FF0000', 90);
-                sampleText('THỌ', window.innerWidth * 0.9, window.innerHeight * 0.15, '#FFD700', 90);
+                // Desktop / Tablet
+                const isTablet = window.innerWidth < 1024;
+
+                sampleText('PHÚC', window.innerWidth * 0.1, window.innerHeight * 0.15, '#FFD700', isTablet ? 60 : 90);
+                sampleText('LỘC', window.innerWidth * 0.5, window.innerHeight * 0.1, '#FF0000', isTablet ? 60 : 90);
+                sampleText('THỌ', window.innerWidth * 0.9, window.innerHeight * 0.15, '#FFD700', isTablet ? 60 : 90);
 
                 // Bottom Wishes
-                sampleText('AN KHANG THỊNH VƯỢNG', window.innerWidth * 0.5, window.innerHeight * 0.82, '#FF0000', 45);
-                sampleText('VẠN SỰ NHƯ Ý', window.innerWidth * 0.5, window.innerHeight * 0.92, '#FFD700', 45);
+                sampleText('AN KHANG THỊNH VƯỢNG', window.innerWidth * 0.5, window.innerHeight * 0.82, '#FF0000', isTablet ? 35 : 45);
+                sampleText('VẠN SỰ NHƯ Ý', window.innerWidth * 0.5, window.innerHeight * 0.92, '#FFD700', isTablet ? 35 : 45);
 
-                // Side Wishes
-                sampleText('VẠN SỰ', window.innerWidth * 0.1, window.innerHeight * 0.85, '#FFD700', 40);
-                sampleText('NHƯ Ý', window.innerWidth * 0.9, window.innerHeight * 0.85, '#FF0000', 40);
+                // Hide side wishes on tablet to avoid clutter
+                if (!isTablet) {
+                    sampleText('VẠN SỰ', window.innerWidth * 0.1, window.innerHeight * 0.85, '#FFD700', 40);
+                    sampleText('NHƯ Ý', window.innerWidth * 0.9, window.innerHeight * 0.85, '#FF0000', 40);
+                }
             }
         };
 
