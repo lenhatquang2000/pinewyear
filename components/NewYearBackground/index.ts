@@ -1,0 +1,1 @@
+export { NewYearBackground } from './NewYearBackground';
