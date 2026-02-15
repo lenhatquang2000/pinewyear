@@ -61,6 +61,72 @@ body {
   }
 }
 
+@keyframes ping-pong {
+
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.02) translateY(-5px);
+  }
+}
+
+@keyframes float-icon {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+}
+
+@keyframes float-icon-reverse {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(10deg) scaleX(-1);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(15deg) scaleX(-1);
+  }
+}
+
+@keyframes glow-shimmer {
+  0% {
+    box-shadow: 0 0 50px rgba(220, 38, 38, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 100px rgba(220, 38, 38, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 50px rgba(220, 38, 38, 0.2);
+  }
+}
+
+.animate-ping-pong {
+  animation: ping-pong 3s ease-in-out infinite;
+}
+
+.animate-float-icon {
+  animation: float-icon 4s ease-in-out infinite;
+}
+
+.animate-float-icon-reverse {
+  animation: float-icon-reverse 5s ease-in-out infinite;
+}
+
+.animate-glow-shimmer {
+  animation: glow-shimmer 4s ease-in-out infinite;
+}
+
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }

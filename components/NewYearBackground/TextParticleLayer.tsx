@@ -91,7 +91,7 @@ export const TextParticleLayer: React.FC = () => {
 
         draw(ctx: CanvasRenderingContext2D) {
             if (!this.active) return;
-            const alpha = this.opacity * (0.4 + Math.sin(this.angle) * 0.3); // Reduced brightness and pulse range
+            const alpha = this.opacity * (0.6 + Math.sin(this.angle) * 0.4); // Increased brightness and pulse range
             ctx.globalAlpha = alpha;
             const drawSize = this.sprite.width;
             ctx.drawImage(
@@ -101,19 +101,19 @@ export const TextParticleLayer: React.FC = () => {
             );
         }
 
-        update(mouseX: number, mouseY: number, currentTargetX: number, currentTargetY: number) {
+        update(mouseX: number, mouseY: number, currentTargetX: number, currentTargetY: { value: number, isButton: boolean }) {
             this.angle += this.pulseSpeed;
             const dx = mouseX - this.x;
             const dy = mouseY - this.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < 100) {
+            if (distance < 100 && !currentTargetY.isButton) {
                 const force = (100 - distance) / 100;
                 this.x -= (dx / distance) * force * this.density;
                 this.y -= (dy / distance) * force * this.density;
             } else {
                 this.x -= (this.x - currentTargetX) * 0.4;
-                this.y -= (this.y - currentTargetY) * 0.4;
+                this.y -= (this.y - currentTargetY.value) * 0.4;
             }
         }
     }
@@ -281,7 +281,7 @@ export const TextParticleLayer: React.FC = () => {
                 const targetX = p.baseX + globalSwayX * swayMult + individualSwayX;
                 const targetY = p.baseY + globalSwayY * swayMult + individualSwayY;
 
-                p.update(mouseRef.current.x, mouseRef.current.y, targetX, targetY);
+                p.update(mouseRef.current.x, mouseRef.current.y, targetX, { value: targetY, isButton: isButtonPart });
                 p.draw(ctx);
             });
 
