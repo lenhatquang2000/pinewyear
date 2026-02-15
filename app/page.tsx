@@ -6,8 +6,8 @@ import { NewYearBackground } from '@/components/NewYearBackground';
 export default function Home() {
   const [showWish, setShowWish] = useState(false);
   const [wishData, setWishData] = useState({
-    text: 'Chúc bạn một năm mới đong đầy hạnh phúc, trọn vẹn bình an và luôn tỏa sáng với những đam mê của chính mình!',
-    image: 'https://images.unsplash.com/photo-1546271027-3367f08df1e5?q=80&w=1000&auto=format&fit=crop'
+    text: '✨ 𝐇𝐚𝐩𝐩𝐲 𝐍𝐞𝐰 𝐘𝐞𝐚𝐫 𝟐𝟎𝟐𝟔 ✨\nGửi tới ný ngầu nhất dải ngân hà 🪐💫\n\nChúc ný năm mới:\n🌸 Nhan sắc: Cứ giữ vững phong độ "đỉnh chóp", lúc nào cũng rạng rỡ.\n💪 Cá tính: Cứ việc mạnh mẽ, quyết đoán như "tổng tài" nhoa ní 😆\n💰 Túi tiền: Lúc nào cũng rủng rỉnh để... dẫn tui đi ăn cả thế giới (hứa sẽ ngoan mà).😗\n\nMong rằng năm nay ný sẽ bớt "cọc" với chị lại một xíu, nhưng iu thương thì dành cho chị phải tăng thêm nhiều xíu nhaaa! Mãi iu! 💖₊˚⊹♡',
+    image: ''
   });
 
   useEffect(() => {
@@ -90,31 +90,22 @@ export default function Home() {
             </div>
 
             <div className="bg-black/40 rounded-[1.95rem] md:rounded-[2.9rem] overflow-hidden">
-              <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <img
-                  src={wishData.image}
-                  alt="Personal Wish"
-                  className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-
-                {/* Greeting Overlay */}
-                <div className="absolute bottom-3 md:bottom-4 left-0 right-0 text-center">
-                  <span className="px-4 md:px-6 py-0.5 md:py-1 rounded-full bg-red-600/80 text-white text-[10px] md:text-xs font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase backdrop-blur-sm border border-amber-400/30">
-                    Chúc Mừng Năm Mới
+              <div className="p-8 md:p-12 relative min-h-[300px] flex flex-col justify-center">
+                {/* Greeting Header */}
+                <div className="mb-8 text-center">
+                  <span className="px-5 py-2 rounded-full bg-red-600/20 text-red-500 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase backdrop-blur-sm border border-red-500/30">
+                    Happy New Year 2026
                   </span>
                 </div>
-              </div>
 
-              <div className="p-6 md:p-8 relative">
                 {/* Traditional Silk Texture Pattern */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
-                <h2 className="text-lg md:text-2xl font-serif font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] italic px-2 animate-ping-pong">
-                  "{wishData.text}"
-                </h2>
+                <div className="text-base md:text-xl font-serif font-medium leading-[1.8] text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-300 to-amber-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] whitespace-pre-line px-2 text-center">
+                  {wishData.text}
+                </div>
 
-                <div className="mt-6 md:mt-8 flex items-center justify-center gap-3 md:gap-4">
+                <div className="mt-8 md:mt-10 flex items-center justify-center gap-3 md:gap-4">
                   <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
                   <div className="flex gap-1.5 md:gap-2">
                     <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-red-600 shadow-[0_0_8px_#ef4444]" />

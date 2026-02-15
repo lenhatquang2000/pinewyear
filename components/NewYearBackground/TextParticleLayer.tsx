@@ -331,7 +331,7 @@ export const TextParticleLayer: React.FC = () => {
                     updateParticleTargets('2026');
                     // Notify that countdown is finished
                     window.dispatchEvent(new CustomEvent('countdown-finished'));
-                }, 4000); // Give some time for the '0' to be seen
+                }, 1500); // Give some time for the '0' to be seen
                 return () => clearTimeout(timer);
             }
         }
