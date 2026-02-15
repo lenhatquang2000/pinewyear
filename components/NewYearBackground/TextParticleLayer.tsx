@@ -91,7 +91,7 @@ export const TextParticleLayer: React.FC = () => {
 
         draw(ctx: CanvasRenderingContext2D) {
             if (!this.active) return;
-            const alpha = this.opacity * (0.6 + Math.sin(this.angle) * 0.4);
+            const alpha = this.opacity * (0.4 + Math.sin(this.angle) * 0.3); // Reduced brightness and pulse range
             ctx.globalAlpha = alpha;
             const drawSize = this.sprite.width;
             ctx.drawImage(
@@ -164,7 +164,7 @@ export const TextParticleLayer: React.FC = () => {
         const mainFontSize = isMobile ? (text.length > 2 ? '110px' : '160px') : '220px';
         const buttonFontSize = isMobile ? '36px' : '40px';
         const buttonYOffset = isMobile ? 120 : 180;
-        const step = isMobile ? 5 : 5; // Use same high density for mobile
+        const step = isMobile ? 8 : 7; // Increased step to reduce particle density
 
         // Target points for main text
         const mainPoints = getSamplePoints(
@@ -183,7 +183,7 @@ export const TextParticleLayer: React.FC = () => {
                 `900 ${buttonFontSize} Arial Black, sans-serif`,
                 width / 2,
                 window.innerHeight / 2 + buttonYOffset,
-                step - 1
+                step + 1 // Even less density for the button to look cleaner
             );
         }
 
@@ -288,7 +288,19 @@ export const TextParticleLayer: React.FC = () => {
             animationFrameId.current = requestAnimationFrame(animate);
         };
 
+        const handleTouchMove = (e: TouchEvent) => {
+            if (e.touches.length > 0) {
+                mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+        };
+
+        const handleTouchEnd = () => {
+            mouseRef.current = { x: -1000, y: -1000 };
+        };
+
         window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
         window.addEventListener('click', handleClick);
         window.addEventListener('resize', handleResize);
 
@@ -297,6 +309,8 @@ export const TextParticleLayer: React.FC = () => {
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
             window.removeEventListener('click', handleClick);
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId.current);

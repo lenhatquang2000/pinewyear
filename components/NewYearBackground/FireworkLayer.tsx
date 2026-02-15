@@ -79,19 +79,62 @@ export const FireworkLayer: React.FC = () => {
             }
         };
 
+        const explodeBigBang = (fw: Firework) => {
+            const isMobile = window.innerWidth < 768;
+            const sparkCount = isMobile ? 150 : 300; // MUCH larger spark count
+
+            for (let i = 0; i < sparkCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 8 + 2; // Much faster
+                fw.sparks.push({
+                    x: fw.x,
+                    y: fw.y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    alpha: 1,
+                    // Use a brilliant golden/white color for the big bang
+                    color: Math.random() > 0.5 ? '#FFD700' : '#FFFFFF',
+                });
+            }
+        };
+
         const handleCelebration = () => {
             celebrationMode.current = true;
-            celebrationEndTime.current = Date.now() + 8000;
+            celebrationEndTime.current = Date.now() + 10000;
 
-            // IMMEDIATE BIG BANG: Launch many fireworks at once!
+            // 1. Launch a SINGLE GIANT FIREWORK in the center
+            const bigBang: Firework = {
+                x: window.innerWidth / 2,
+                y: window.innerHeight,
+                targetY: window.innerHeight * 0.4,
+                vy: -7,
+                sparks: [],
+                exploded: false,
+                color: '#FFD700',
+            };
+
+            // Add a special behavior to explodeBigBang when it reaches target
+            const checkExplosion = () => {
+                if (!bigBang.exploded && bigBang.y <= bigBang.targetY) {
+                    bigBang.exploded = true;
+                    explodeBigBang(bigBang);
+                } else if (!bigBang.exploded) {
+                    bigBang.y += bigBang.vy;
+                    requestAnimationFrame(checkExplosion);
+                }
+            };
+
+            fireworks.current.push(bigBang);
+
+            // 2. IMMEDIATE Supporting Burst
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     createFirework(
                         Math.random() * window.innerWidth,
                         window.innerHeight,
-                        Math.random() * (window.innerHeight * 0.6) // Various heights
+                        Math.random() * (window.innerHeight * 0.6)
                     );
-                }, i * 100); // Slight stagger for natural feel, but very fast
+                }, i * 200 + 1000); // Start after the big one gets halfway
             }
         };
 
