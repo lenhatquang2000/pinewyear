@@ -10,13 +10,15 @@ export default function SettingPage() {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const savedCount = localStorage.getItem('countdownStart');
-        const savedWish = localStorage.getItem('familyWish');
-        const savedImg = localStorage.getItem('familyImage');
-
-        if (savedCount) setCountdownStart(parseInt(savedCount, 10));
-        if (savedWish) setFamilyWish(savedWish);
-        if (savedImg) setImageUrl(savedImg);
+        // Load settings from server
+        fetch('/api/settings')
+            .then(res => res.json())
+            .then(data => {
+                if (data.countdownStart) setCountdownStart(data.countdownStart);
+                if (data.familyWish) setFamilyWish(data.familyWish);
+                if (data.familyImage) setImageUrl(data.familyImage);
+            })
+            .catch(err => console.error('Failed to load settings:', err));
     }, []);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,11 +37,28 @@ export default function SettingPage() {
         }
     };
 
-    const handleSave = () => {
-        localStorage.setItem('countdownStart', countdownStart.toString());
-        localStorage.setItem('familyWish', familyWish);
-        localStorage.setItem('familyImage', imageUrl);
-        alert('Đã lưu cài đặt thành công!');
+    const handleSave = async () => {
+        const settings = {
+            countdownStart,
+            familyWish,
+            familyImage: imageUrl
+        };
+
+        try {
+            const res = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+
+            if (res.ok) {
+                alert('Đã lưu cài đặt thành công lên server!');
+            } else {
+                throw new Error('Failed to save');
+            }
+        } catch (error) {
+            alert('Lỗi khi lưu cài đặt!');
+        }
     };
 
     return (

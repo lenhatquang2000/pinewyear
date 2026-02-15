@@ -11,16 +11,23 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Sync settings from localStorage
+    // Sync settings from Server API
     const updateWishData = () => {
-      const savedWish = localStorage.getItem('familyWish');
-      const savedImg = localStorage.getItem('familyImage');
-      if (savedWish || savedImg) {
-        setWishData({
-          text: savedWish || wishData.text,
-          image: savedImg || wishData.image
-        });
-      }
+      fetch('/api/settings')
+        .then(res => res.json())
+        .then(data => {
+          if (data.familyWish || data.familyImage) {
+            setWishData({
+              text: data.familyWish || wishData.text,
+              image: data.familyImage || wishData.image
+            });
+            // Update countdown reference in localStorage so particle layer can pick it up
+            if (data.countdownStart) {
+              localStorage.setItem('countdownStart', data.countdownStart.toString());
+            }
+          }
+        })
+        .catch(err => console.error('Failed to sync settings:', err));
     };
 
     updateWishData();
